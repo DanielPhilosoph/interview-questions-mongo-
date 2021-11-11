@@ -41,4 +41,13 @@ router.post("/create", async (req, res, next) => {
   }
 });
 
+router.delete("/remove/:id", async (req, res, next) => {
+  try {
+    await Questions.deleteOne({ _id: req.params.id });
+    res.json({ message: "Removed" });
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 module.exports = router;
