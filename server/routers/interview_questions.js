@@ -9,4 +9,21 @@ router.get("/list", async (req, res, next) => {
   res.send(await Questions.find({}));
 });
 
+router.put("/update", async (req, res, next) => {
+  try {
+    await Questions.updateOne(
+      { _id: req.body.id },
+      {
+        title: req.body.title,
+        correctAnswer: req.body.correctAnswer,
+        answers: req.body.answers,
+        difficulty: req.body.difficulty,
+      }
+    );
+    res.json({ message: "Updated" });
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 module.exports = router;
