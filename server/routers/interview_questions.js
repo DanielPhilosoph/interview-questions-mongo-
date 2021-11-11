@@ -18,9 +18,24 @@ router.put("/update", async (req, res, next) => {
         correctAnswer: req.body.correctAnswer,
         answers: req.body.answers,
         difficulty: req.body.difficulty,
-      }
+      },
+      { runValidators: true }
     );
     res.json({ message: "Updated" });
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.post("/create", async (req, res, next) => {
+  try {
+    await Questions.create({
+      title: req.body.title,
+      correctAnswer: req.body.correctAnswer,
+      answers: req.body.answers,
+      difficulty: req.body.difficulty,
+    });
+    res.json({ message: "Created" });
   } catch (error) {
     res.status(404).send(error.message);
   }
