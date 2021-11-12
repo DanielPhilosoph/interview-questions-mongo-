@@ -50,4 +50,15 @@ router.delete("/remove/:id", async (req, res, next) => {
   }
 });
 
+router.get("/read/by/difficulty/:difficulty", async (req, res, next) => {
+  try {
+    let results = await Questions.find({
+      difficulty: { $gte: req.params.difficulty },
+    });
+    res.send(results);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 module.exports = router;
